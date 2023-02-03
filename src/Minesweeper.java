@@ -10,6 +10,7 @@ public class Minesweeper {
         initMinefield(numMines, grid);
 
         //TODO 1. draw the grid (take into account revealed)
+        StdDraw.setScale(-0.5, size - 0.5);
         drawMinefield(grid, revealed);
 
         //TODO keep doing there steps until otherwise told
@@ -34,7 +35,13 @@ public class Minesweeper {
     }
 
     public static boolean hasWon(boolean[][] grid, boolean[][] revealed) {
-        return false;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] != revealed[i][j]) return false;
+            }
+        }
+
+        return true;
     }
 
     public static void handleMouseClick(boolean[][] grid, boolean[][] revealed) {
@@ -42,7 +49,11 @@ public class Minesweeper {
     }
 
     public static void drawMinefield(boolean[][] grid, boolean[][] revealed) {
-
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                StdDraw.square(i, j, 0.5);
+            }
+        }
     }
 
     public static void initMinefield(int numMines, boolean[][] grid) {
