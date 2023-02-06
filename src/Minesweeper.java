@@ -57,14 +57,12 @@ public class Minesweeper {
     }
 
     public static void initMinefield(int numMines, boolean[][] grid) {
-        int size = grid.length;
-        for (int i = 0; i < numMines; i++) {
+        for (int i = 0; i < numMines; ++i) {
             while (true) {
-                int row = (int) (Math.random() * size + 1) - 1;
-                int col = (int) (Math.random() * size + 1) - 1;
-
-                if (!grid[row][col]) {
-                    grid[row][col] = true;
+                int x = StdRandom.uniformInt(grid.length);
+                int y = StdRandom.uniformInt(grid.length);
+                if (!grid[x][y]) {
+                    grid[x][y] = true;
                     break;
                 }
             }
