@@ -3,7 +3,7 @@ public class Minesweeper {
         StdOut.println("Welcome to minesweeper!");
         int size  = 10, numMines = 10;
         boolean[][] grid = new boolean[size][size];
-        boolean[][] revealed = new boolean[size][size];
+        boolean[][] revealed = new boolean[size][size];  // clicked or not
 
 
         //TODO initialize grid: place bombs in random location
@@ -57,5 +57,17 @@ public class Minesweeper {
     }
 
     public static void initMinefield(int numMines, boolean[][] grid) {
+        int size = grid.length;
+        for (int i = 0; i < numMines; i++) {
+            while (true) {
+                int row = (int) (Math.random() * size + 1) - 1;
+                int col = (int) (Math.random() * size + 1) - 1;
+
+                if (!grid[row][col]) {
+                    grid[row][col] = true;
+                    break;
+                }
+            }
+        }
     }
 }
