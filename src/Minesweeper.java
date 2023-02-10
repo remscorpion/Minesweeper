@@ -49,12 +49,31 @@ public class Minesweeper {
     }
 
     public static void drawMinefield(boolean[][] grid, boolean[][] revealed) {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                StdDraw.square(i, j, 0.5);
+        int x = 0;
+        while (x < grid.length) {
+            int y = 0;
+            while (y < grid.length) {
+                if (!revealed[x][y]) {
+                    StdDraw.setPenColor(StdDraw.BLUE);
+                    StdDraw.filledSquare(x, y, 0.5);
+                    StdDraw.setPenColor(StdDraw.BLACK);
+                }
+                else if (grid[x][y]) {
+                    StdDraw.setPenColor(StdDraw.RED);
+                    StdDraw.filledCircle(x, y, 0.3);
+                    StdDraw.setPenColor(StdDraw.BLACK);
+                }
+                else {
+                    int count = countNeighboringMines(grid, x, y);
+                    if (count != 0) StdDraw.text(x, y, "" + count);
+                }
+                StdDraw.square(x, y, 0.5);
+                y = y + 1;
             }
+            x = x + 1;
         }
     }
+
 
     public static void initMinefield(int numMines, boolean[][] grid) {
         for (int i = 0; i < numMines; ++i) {
@@ -67,5 +86,19 @@ public class Minesweeper {
                 }
             }
         }
+    }
+
+    public static int countNeighboringMines(boolean[][] grid, int row, int col) {
+        int count = 0;
+        int i, j;
+
+        for (i = Math.max(0, row - 1);i <= Math.min(grid.length - 1, row + 1); ++i) {
+            for (j = Math.max(0, col - 1); j <= Math.min(grid.length - 1, col + 1); ++j) {
+                if (grid[i][j]) ++count;
+            }
+        }
+
+
+        return count;
     }
 }
